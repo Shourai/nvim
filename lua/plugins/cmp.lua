@@ -7,6 +7,7 @@
 --
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require 'lspkind'
 
 cmp.setup {
   -- load snippet support
@@ -62,5 +63,9 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
     { name = 'buffer' },
+  },
+
+  formatting = {
+    format = lspkind.cmp_format({with_text = false, maxwidth = 50})
   },
 }
