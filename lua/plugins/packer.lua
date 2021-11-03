@@ -39,6 +39,19 @@ return require('packer').startup(function()
   -- Easy align
   use 'junegunn/vim-easy-align'
 
+  -- nvim-tree
+  use {
+      'kyazdani42/nvim-tree.lua',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function() require'nvim-tree'.setup {} end
+  }
+
+  -- Toggleterm
+  use {"akinsho/toggleterm.nvim"}
+
+  -- lspkind-nvim
+  use {"onsails/lspkind-nvim"}
+
   -- Useful plugins
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
