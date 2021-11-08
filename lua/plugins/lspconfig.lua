@@ -1,10 +1,3 @@
--- require'lspconfig'.pyright.setup{
---   on_attach = function(client, bufnr)
---     require "lsp_signature".on_attach()
---   end
--- }
-
-
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
