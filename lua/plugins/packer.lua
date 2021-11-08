@@ -49,9 +49,7 @@ return require('packer').startup(function()
   use {"akinsho/toggleterm.nvim"}
 
   -- Indentation guides
-  use {"lukas-reineke/indent-blankline.nvim",
-       config = function() require "indent_blankline".setup{} end
-     }
+  use {"lukas-reineke/indent-blankline.nvim"}
 
   -- lspkind-nvim
   use {"onsails/lspkind-nvim"}
