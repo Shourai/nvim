@@ -30,7 +30,6 @@ return require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter'
 
   -- Theme
-  use 'NTBBloodbath/doom-one.nvim'
   use 'navarasu/onedark.nvim'
 
   -- Autopairs
