@@ -54,9 +54,10 @@ return require('packer').startup(function()
   -- lspkind-nvim
   use {"onsails/lspkind-nvim"}
 
-  -- Useful plugins
-  use 'tpope/vim-commentary'
+  -- Vim surround
   use 'tpope/vim-surround'
+
+  -- Git signs
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
@@ -71,6 +72,14 @@ return require('packer').startup(function()
   use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
+
+  -- Comments
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
   }
 
   -- Tmux
