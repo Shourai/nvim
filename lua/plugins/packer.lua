@@ -82,6 +82,9 @@ return require('packer').startup(function()
     end
   }
 
+  -- Vim table mode
+  use {'dhruvasagar/vim-table-mode', opt = true, cmd = { "TableModeEnable", "TableModeToggle"}}
+
   -- Tmux
   use {
     "aserowy/tmux.nvim",
