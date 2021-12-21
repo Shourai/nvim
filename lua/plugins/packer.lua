@@ -27,17 +27,21 @@ return require('packer').startup(function()
   use 'ray-x/lsp_signature.nvim'
 
   -- Completion
-  use 'L3MON4D3/LuaSnip'
   use {
       'hrsh7th/nvim-cmp',
       requires = {
-          { 'hrsh7th/cmp-buffer'},
           { 'hrsh7th/cmp-nvim-lsp'},
-          { 'hrsh7th/cmp-nvim-lua'},
+          { 'hrsh7th/cmp-buffer'},
           { 'hrsh7th/cmp-path'},
-          { 'hrsh7th/cmp-cmdline'}
+          { 'hrsh7th/cmp-cmdline'},
+          { 'hrsh7th/nvim-cmp'}
         }
   }
+
+  -- Snippets
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+  use "rafamadriz/friendly-snippets"
 
   -- Telescope
   use {
