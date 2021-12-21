@@ -22,5 +22,8 @@ map('n', '<C-n>', ':NvimTreeToggle<CR>', default_opts)       -- open/close
 map('n', '<leader>r', ':NvimTreeRefresh<CR>', default_opts)  -- refresh
 map('n', '<leader>n', ':NvimTreeFindFile<CR>', default_opts) -- search file
 
+-- Toggleterm
+map("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", default_opts)
+
 -- reload init.lua
 map("n", "<leader>rc", "<cmd>luafile %<cr>", default_opts)
