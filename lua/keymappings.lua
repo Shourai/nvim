@@ -7,6 +7,9 @@ map("n", "<C-j>", "<C-w>j", default_opts)
 map("n", "<C-k>", "<C-w>k", default_opts)
 map("n", "<C-l>", "<C-w>l", default_opts)
 
+-- Navigate buffers
+map("n", "<S-l>", ":bnext<CR>", default_opts)
+map("n", "<S-h>", ":bprevious<CR>", default_opts)
 
 -- telescope
 map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", default_opts)
