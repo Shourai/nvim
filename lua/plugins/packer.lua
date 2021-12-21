@@ -16,7 +16,6 @@ packer.init {
   compile_path = require("packer.util").join_paths(vim.fn.stdpath('config'),'lua', 'packer_compiled.lua')
 }
 
-
 return require('packer').startup(function()
 
   -- Packer can manage itself
@@ -24,6 +23,7 @@ return require('packer').startup(function()
 
   -- LSP
   use 'neovim/nvim-lspconfig'
+  use 'williamboman/nvim-lsp-installer'
   use 'ray-x/lsp_signature.nvim'
 
   -- Completion
