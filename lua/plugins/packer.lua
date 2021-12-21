@@ -1,3 +1,18 @@
+-- Automatically install packer
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
+
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+
 return require('packer').startup(function()
 
   -- Packer can manage itself
@@ -101,4 +116,8 @@ return require('packer').startup(function()
         resize = { enable_default_keybindings = true } })
       end
     }
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
   end)
