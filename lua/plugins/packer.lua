@@ -12,6 +12,10 @@ if not status_ok then
   return
 end
 
+packer.init {
+  compile_path = require("packer.util").join_paths(vim.fn.stdpath('config'),'lua', 'packer_compiled.lua')
+}
+
 
 return require('packer').startup(function()
 
