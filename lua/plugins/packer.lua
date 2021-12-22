@@ -5,18 +5,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-  return
-end
-
-packer.init {
-  compile_path = require("packer.util").join_paths(vim.fn.stdpath('config'),'lua', 'packer_compiled.lua')
-}
-
-return require('packer').startup(function()
+return require('packer').startup(function(use)
 
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
@@ -65,7 +54,6 @@ return require('packer').startup(function()
   use {
       'kyazdani42/nvim-tree.lua',
       requires = 'kyazdani42/nvim-web-devicons',
-      config = function() require'nvim-tree'.setup {} end
   }
 
   -- Toggleterm
@@ -128,4 +116,4 @@ return require('packer').startup(function()
   if packer_bootstrap then
     require('packer').sync()
   end
-  end)
+end)
