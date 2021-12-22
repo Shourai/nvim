@@ -1,6 +1,7 @@
 
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
+
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
@@ -36,6 +37,11 @@ require'nvim-tree'.setup {
     dotfiles = false,
     custom = {}
   },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
   view = {
     width = 30,
     height = 30,
@@ -45,6 +51,13 @@ require'nvim-tree'.setup {
     mappings = {
       custom_only = false,
       list = {}
-    }
+    },
+    number = false,
+    relativenumber = false,
+    signcolumn = "yes"
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true
   }
 }
