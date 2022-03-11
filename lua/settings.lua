@@ -16,7 +16,7 @@ opt.mouse     = "a"                   -- allow the mouse to be used in neovim
 opt.clipboard = "unnamed,unnamedplus" -- allow neovim to access the system clipboard
 opt.swapfile  = false                 -- creates a swapfile
 opt.backup    = false                 -- don't create backup file
-opt.undofile  = true
+opt.undofile  = true                  -- save undo history to undo file
 
 -----------------------------------------------------------
 -- User Interface
@@ -33,7 +33,6 @@ opt.cursorline     = true    -- highlight the current line
 opt.number         = true    -- set numbered lines
 opt.relativenumber = true    -- set relative numbered lines
 opt.termguicolors  = true    -- Enables 24 bit RGB colors in the TUI
-opt.inccommand     = "nosplit"
 
 -----------------------------------------------------------
 -- Tabs, indent
