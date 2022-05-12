@@ -1,6 +1,5 @@
 require("nvim-lsp-installer").setup({
-    ensure_installed = { "gopls", "pyright", "tsserver", "eslint", "yamlls", "jsonls" }, -- ensure these servers are always installed
-    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+    automatic_installation = { exclude = { "gopls" } }, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 })
 
 require('lspconfig')
@@ -48,13 +47,3 @@ for _, lsp in pairs(servers) do
     }
   }
 end
-
--- lsp_installer.on_server_ready(function(server)
---     local opts = {
---       on_attach = on_attach,
---       flags = {
---         debounce_text_changes = 150,
---       }
---     }
---     server:setup(opts)
--- end)
