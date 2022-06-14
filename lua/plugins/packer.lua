@@ -44,12 +44,8 @@ return require('packer').startup({
   use 'nvim-treesitter/nvim-treesitter'
 
   -- Theme
-  use { 'navarasu/onedark.nvim',
-  config =
-  function()
-    vim.cmd("colorscheme onedark")
-  end
-}
+  use 'navarasu/onedark.nvim'
+  require('onedark').load()
 
   -- Autopairs
   use 'windwp/nvim-autopairs'
