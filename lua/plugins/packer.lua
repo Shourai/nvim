@@ -1,123 +1,135 @@
 -- Automatically install packer
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local ensure_packer = function()
+	local fn = vim.fn
+	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+	if fn.empty(fn.glob(install_path)) > 0 then
+		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+		vim.cmd([[packadd packer.nvim]])
+		return true
+	end
+	return false
 end
 
-return require('packer').startup({
-  config = { compile_path  = vim.fn.stdpath('data') .. '/site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua'},
-  function(use)
+local packer_bootstrap = ensure_packer()
 
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+return require("packer").startup({
+	config = {
+		compile_path = vim.fn.stdpath("data") .. "/site/pack/loader/start/packer.nvim/plugin/packer_compiled.lua",
+	},
+	function(use)
+		-- Packer can manage itself
+		use("wbthomason/packer.nvim")
 
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use 'ray-x/lsp_signature.nvim'
+		-- LSP
+		use("neovim/nvim-lspconfig")
+		use("williamboman/mason.nvim")
+		use("williamboman/mason-lspconfig.nvim")
+		use("onsails/lspkind.nvim")
+		use({ "glepnir/lspsaga.nvim", branch = "main" })
+		use("ray-x/lsp_signature.nvim")
 
-  -- Completion
-  use {
-      'hrsh7th/nvim-cmp',
-      requires = {
-          { 'hrsh7th/cmp-nvim-lsp'},
-          { 'hrsh7th/cmp-buffer'},
-          { 'hrsh7th/cmp-path'},
-          { 'hrsh7th/cmp-cmdline'},
-          { 'hrsh7th/nvim-cmp'}
-        }
-  }
+		-- Formatting and linting
+		use("jose-elias-alvarez/null-ls.nvim")
+		use("jayp0521/mason-null-ls.nvim")
 
-  -- Snippets
-  use 'L3MON4D3/LuaSnip'
-  use 'saadparwaiz1/cmp_luasnip'
-  use "rafamadriz/friendly-snippets"
+		-- Completion
+		use({
+			"hrsh7th/nvim-cmp",
+			requires = {
+				{ "hrsh7th/cmp-nvim-lsp" },
+				{ "hrsh7th/cmp-buffer" },
+				{ "hrsh7th/cmp-path" },
+				{ "hrsh7th/cmp-cmdline" },
+			},
+		})
 
-  -- Telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  }
+		-- Snippets
+		use("L3MON4D3/LuaSnip")
+		use("saadparwaiz1/cmp_luasnip")
+		use("rafamadriz/friendly-snippets")
 
-  -- Treesitter
-  use 'nvim-treesitter/nvim-treesitter'
+		-- Telescope
+		use({
+			"nvim-telescope/telescope.nvim",
+			requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+		})
 
-  -- Theme
-  use 'navarasu/onedark.nvim'
-  require('onedark').load()
+		-- Treesitter
+		use("nvim-treesitter/nvim-treesitter")
 
-  -- Autopairs
-  use 'windwp/nvim-autopairs'
+		-- Theme
+		use("navarasu/onedark.nvim")
+		require("onedark").load()
 
-  -- Easy align
-  use 'junegunn/vim-easy-align'
+		-- Autopairs
+		use("windwp/nvim-autopairs")
 
-  -- nvim-tree
-  use {
-      'kyazdani42/nvim-tree.lua',
-      requires = 'kyazdani42/nvim-web-devicons',
-  }
+		-- Easy align
+		use("junegunn/vim-easy-align")
 
-  -- Toggleterm
-  use {"akinsho/toggleterm.nvim"}
+		-- nvim-tree
+		use({
+			"kyazdani42/nvim-tree.lua",
+			requires = "kyazdani42/nvim-web-devicons",
+		})
 
-  -- Indentation guides
-  use {"lukas-reineke/indent-blankline.nvim"}
+		-- Toggleterm
+		use({ "akinsho/toggleterm.nvim" })
 
-  -- lspkind-nvim
-  use {"onsails/lspkind-nvim"}
+		-- Indentation guides
+		use({ "lukas-reineke/indent-blankline.nvim" })
 
-  -- Vim surround
-  use 'tpope/vim-surround'
+		-- Vim surround
+		use("tpope/vim-surround")
 
-  -- Git signs
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    },
-    config = function()
-      require('gitsigns').setup()
-    end
-  }
+		-- Git signs
+		use({
+			"lewis6991/gitsigns.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+			},
+			config = function()
+				require("gitsigns").setup()
+			end,
+		})
 
-  -- Modeline
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
+		-- Modeline
+		use({
+			"nvim-lualine/lualine.nvim",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		})
 
-  -- Comments
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
-    end
-  }
+		-- Comments
+		use({
+			"numToStr/Comment.nvim",
+			config = function()
+				require("Comment").setup()
+			end,
+		})
 
-  -- Vim table mode
-  use {'dhruvasagar/vim-table-mode', opt = true, cmd = { "TableModeEnable", "TableModeToggle"}}
+		-- Vim table mode
+		use({ "dhruvasagar/vim-table-mode", opt = true, cmd = { "TableModeEnable", "TableModeToggle" } })
 
-  -- Tmux
-  use {
-    "aserowy/tmux.nvim",
-    config = function()
-      require("tmux").setup({
-        copy_sync = {
-          enable = true,
-          redirect_to_clipboard = true,
-          register_offset = 0,
-          sync_clipboard = false,
-          sync_deletes = true,
-        },
-        navigation = { enable_default_keybindings = true },
-        resize = { enable_default_keybindings = true } })
-      end
-    }
+		-- Tmux
+		use({
+			"aserowy/tmux.nvim",
+			config = function()
+				require("tmux").setup({
+					copy_sync = {
+						enable = true,
+						redirect_to_clipboard = true,
+						register_offset = 0,
+						sync_clipboard = false,
+						sync_deletes = true,
+					},
+					navigation = { enable_default_keybindings = true },
+					resize = { enable_default_keybindings = true },
+				})
+			end,
+		})
 
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end})
+		if packer_bootstrap then
+			require("packer").sync()
+		end
+	end,
+})
