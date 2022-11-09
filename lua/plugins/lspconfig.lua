@@ -1,7 +1,3 @@
-require("nvim-lsp-installer").setup({
-    automatic_installation = { exclude = { "gopls" } }, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-})
-
 require('lspconfig')
 
 -- Mappings.
