@@ -55,7 +55,13 @@ return require("packer").startup({
 		})
 
 		-- Treesitter
-		use("nvim-treesitter/nvim-treesitter")
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			run = function()
+				local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+				ts_update()
+			end,
+		})
 
 		-- Theme
 		use("navarasu/onedark.nvim")
@@ -63,6 +69,7 @@ return require("packer").startup({
 
 		-- Autopairs
 		use("windwp/nvim-autopairs")
+		use("windwp/nvim-ts-autotag")
 
 		-- Easy align
 		use("junegunn/vim-easy-align")
