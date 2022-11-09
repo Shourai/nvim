@@ -1,4 +1,5 @@
 require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -39,6 +40,7 @@ end
 local servers = { "gopls", "pyright", "tsserver", "eslint", "yamlls", "jsonls" }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
+    capabilities = capabilities,
     on_attach = on_attach,
     flags = {
       -- This will be the default in neovim 0.7+
