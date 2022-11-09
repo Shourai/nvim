@@ -46,7 +46,7 @@ opt.smartindent = true
 -- Autocompletion
 -----------------------------------------------------------
 -- insert mode completion options
-opt.completeopt = "menuone,noselect"
+opt.completeopt = "menu,menuone,noselect"
 
 -----------------------------------------------------------
 -- Misc
