@@ -144,6 +144,9 @@ return require("packer").startup({
 			end,
 		})
 
+		-- Undo Tree
+		use("mbbill/undotree")
+
 		if packer_bootstrap then
 			require("packer").sync()
 		end
