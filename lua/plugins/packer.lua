@@ -140,8 +140,6 @@ return require("packer").startup({
 						sync_clipboard = false,
 						sync_deletes = true,
 					},
-					navigation = { enable_default_keybindings = true },
-					resize = { enable_default_keybindings = true },
 				})
 			end,
 		})
