@@ -21,5 +21,8 @@ map("n", "<leader>n", ":NvimTreeFindFile<CR>", default_opts) -- search file
 -- Toggleterm
 map("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", default_opts)
 
+--  Undotree
+map("n", "<F5>", ":UndotreeToggle<CR>", default_opts)
+
 -- reload init.lua
 map("n", "<leader>rc", "<cmd>luafile %<cr>", default_opts)
