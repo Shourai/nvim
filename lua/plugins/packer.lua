@@ -25,8 +25,10 @@ return require("packer").startup({
 		use("williamboman/mason.nvim")
 		use("williamboman/mason-lspconfig.nvim")
 		use("onsails/lspkind.nvim")
-		use({ "glepnir/lspsaga.nvim", branch = "main" })
 		use("ray-x/lsp_signature.nvim")
+    use({ "glepnir/lspsaga.nvim", branch = "main",
+        requires = { {"nvim-tree/nvim-web-devicons"} }
+    })
 
 		-- Formatting and linting
 		use("jose-elias-alvarez/null-ls.nvim")
