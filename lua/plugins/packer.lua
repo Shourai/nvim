@@ -86,7 +86,7 @@ return require("packer").startup({
 		})
 
 		-- Toggleterm
-		use({ "akinsho/toggleterm.nvim" })
+		use({ "akinsho/toggleterm.nvim", tag = '*' })
 
 		-- Indentation guides
 		use({ "lukas-reineke/indent-blankline.nvim" })
