@@ -49,3 +49,5 @@ for _, lsp in pairs(servers) do
 		},
 	})
 end
+
+require('lspconfig').yamlls.setup { settings = { yaml = { keyOrdering = false } } }
