@@ -1,6 +1,10 @@
 require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-require("lsp_signature").setup()
+
+require("lsp_signature").setup({
+  floating_window = false,
+  toggle_key = "<C-k>",
+})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
