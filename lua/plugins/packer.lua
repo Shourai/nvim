@@ -149,14 +149,6 @@ return require("packer").startup({
 		-- Undo Tree
 		use("mbbill/undotree")
 
-		-- Which key
-		use({
-			"folke/which-key.nvim",
-			config = function()
-				require("which-key").setup()
-			end,
-		})
-
 		if packer_bootstrap then
 			require("packer").sync()
 		end
