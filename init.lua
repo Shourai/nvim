@@ -1,6 +1,6 @@
 require("settings")
 require("keymappings")
-require("plugins/packer")
+require("plugins/lazy")
 require("plugins/autopairs")
 require("plugins/cmp")
 require("plugins/indent-blankline")
