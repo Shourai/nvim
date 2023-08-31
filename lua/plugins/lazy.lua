@@ -63,7 +63,9 @@ require("lazy").setup({
 		-- Theme
 		{
       "navarasu/onedark.nvim" ,
-      require("onedark").load(),
+			config = function()
+        require("onedark").load()
+			end,
     },
 
 		-- Autopairs
