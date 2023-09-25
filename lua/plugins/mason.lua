@@ -10,12 +10,20 @@ return {
         ensure_installed = { "lua_ls", "ansiblels", "bashls", "dockerls",
           "gopls", "html", "tsserver", "marksman", "pyright" }
       })
-    end},
-  {"jayp0521/mason-null-ls.nvim",
+    end
+  },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
     config = function()
       require("mason-null-ls").setup({
         ensure_installed = { "stylua", "jq", "prettier", "eslint_d", "markdownlint", "ruff-lsp", "shellcheck", "yamllint" }
       })
-    end},
+    end
+  },
 
 }
