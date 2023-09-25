@@ -14,7 +14,7 @@ return {
   {"jayp0521/mason-null-ls.nvim",
     config = function()
       require("mason-null-ls").setup({
-        ensure_installed = { "stylua", "jq", "prettier", "eslint_d", "markdownlint", "flake8", "shellcheck", "yamllint" }
+        ensure_installed = { "stylua", "jq", "prettier", "eslint_d", "markdownlint", "ruff-lsp", "shellcheck", "yamllint" }
       })
     end},
 
