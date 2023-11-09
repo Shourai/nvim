@@ -19,7 +19,7 @@ return {
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				lua = { "stylua" },
-				python = { "black", "isort" },
+				python = { "ruff_format" },
 			},
 		})
 		vim.keymap.set({ "n", "v" }, "<leader>cf", function()
