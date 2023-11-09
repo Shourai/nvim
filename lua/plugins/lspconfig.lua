@@ -45,10 +45,10 @@ return {
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    -- -- configure python server
-    -- lspconfig["pyright"].setup({
-    --   capabilities = capabilities,
-    -- })
+    -- configure python server
+    lspconfig["pyright"].setup({
+      capabilities = capabilities,
+    })
 
     -- configure ruff-lsp server
     lspconfig["ruff_lsp"].setup({
