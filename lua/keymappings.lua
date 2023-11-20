@@ -20,6 +20,15 @@ map("n", "<leader>n", ":NvimTreeFindFile<CR>", default_opts) -- search file
 
 -- Toggleterm
 map("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", default_opts)
+map("n", "<leader>tt", ":ToggleTerm<CR>", default_opts)
+map("n", "<leader>cl", ":ToggleTermSendCurrentLine<CR>", default_opts)
+map("v", "<leader>vl", ":ToggleTermSendVisualLines<CR>", default_opts)
+
+map("t", "<C-h>", [[<Cmd>wincmd h<CR>]], default_opts)
+map("t", "<C-j>", [[<Cmd>wincmd j<CR>]], default_opts)
+map("t", "<C-k>", [[<Cmd>wincmd k<CR>]], default_opts)
+map("t", "<C-l>", [[<Cmd>wincmd l<CR>]], default_opts)
+map("t", "<C-w>", [[<C-\><C-n><C-w>]], default_opts)
 
 --  Undotree
 map("n", "<F5>", ":UndotreeToggle<CR>", default_opts)
