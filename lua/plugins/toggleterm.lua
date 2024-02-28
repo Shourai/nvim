@@ -7,6 +7,9 @@
 return {
 	"akinsho/toggleterm.nvim",
 	lazy = true,
+	keys = {
+		{ "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", mode = "n", desc = "ToggleTerm lazygit" },
+	},
 	version = "*",
 	config = function()
 		-- NOTE: Please ensure you have set hidden in your neovim config, otherwise the terminals will be discarded when closed.
