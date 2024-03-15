@@ -62,4 +62,4 @@ opt.autowriteall = true
 cmd("autocmd BufWritePost plugins.lua PackerCompile")
 
 -- remove whitespace on save
-cmd [[au BufWritePre * :%s/\s\+$//e]]
+-- cmd [[au BufWritePre * :%s/\s\+$//e]]
