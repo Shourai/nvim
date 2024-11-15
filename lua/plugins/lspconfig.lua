@@ -57,8 +57,8 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- configure ruff-lsp server
-		lspconfig["ruff_lsp"].setup({
+		-- configure ruff server
+		lspconfig["ruff"].setup({
 			capabilities = capabilities,
 			on_attach = function(client, _)
 				-- Disable hover in favor of Pyright
@@ -73,7 +73,7 @@ return {
 		})
 
 		-- configure typescript server with plugin
-		lspconfig["tsserver"].setup({
+		lspconfig["ts_ls"].setup({
 			capabilities = capabilities,
 		})
 
