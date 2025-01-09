@@ -72,8 +72,5 @@ cmd("autocmd FocusLost * silent! :wa")
 -- write the contents of the file when jumping between jumppoints
 opt.autowriteall = true
 
--- automatically run PackerCompile when changes to plugins.lua has been made
-cmd("autocmd BufWritePost plugins.lua PackerCompile")
-
 -- remove whitespace on save
 -- cmd [[au BufWritePre * :%s/\s\+$//e]]
