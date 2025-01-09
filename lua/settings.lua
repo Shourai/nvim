@@ -19,6 +19,20 @@ opt.backup = false -- don't create backup file
 opt.undofile = true -- save undo history to undo file
 
 -----------------------------------------------------------
+-- Clipboard support for OSC 52
+-----------------------------------------------------------
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
+-----------------------------------------------------------
 -- User Interface
 -----------------------------------------------------------
 opt.conceallevel = 0 -- so that `` is visible in markdown files
