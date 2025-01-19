@@ -73,7 +73,7 @@ return {
 		})
 
 		-- configure typescript server with plugin
-		lspconfig["ts_ls"].setup({
+		lspconfig["tsserver"].setup({
 			capabilities = capabilities,
 		})
 
