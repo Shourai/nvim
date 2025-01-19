@@ -21,14 +21,14 @@ opt.undofile = true -- save undo history to undo file
 -----------------------------------------------------------
 -- Clipboard support for OSC 52
 -----------------------------------------------------------
-local function paste()
-	return {
-		vim.fn.split(vim.fn.getreg(""), "\n"),
-		vim.fn.getregtype(""),
-	}
-end
+if vim.env.SSH_TTY ~= nil then
+	local function paste()
+		return {
+			vim.fn.split(vim.fn.getreg(""), "\n"),
+			vim.fn.getregtype(""),
+		}
+	end
 
-if os.getenv("SSH_TTY") ~= nil then
 	vim.g.clipboard = {
 		name = "OSC 52",
 		copy = {
