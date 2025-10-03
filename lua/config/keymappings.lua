@@ -14,8 +14,5 @@ map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", de
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", default_opts)
 map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').builtin()<cr>", default_opts)
 
---  Undotree
-map("n", "<F5>", ":UndotreeToggle<CR>", default_opts)
-
 -- reload init.lua
 map("n", "<leader>rc", "<cmd>luafile %<cr>", default_opts)
