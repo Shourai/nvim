@@ -13,11 +13,6 @@ map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", 
 map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", default_opts)
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", default_opts)
 
--- nvim-tree
-map("n", "<C-n>", ":NvimTreeToggle<CR>", default_opts) -- open/close
-map("n", "<leader>r", ":NvimTreeRefresh<CR>", default_opts) -- refresh
-map("n", "<leader>n", ":NvimTreeFindFile<CR>", default_opts) -- search file
-
 -- Toggleterm
 map("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", default_opts)
 map("n", "<leader>tt", ":ToggleTerm<CR>", default_opts)
