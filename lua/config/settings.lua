@@ -56,6 +56,7 @@ opt.cursorline = true -- highlight the current line
 opt.number = true -- set numbered lines
 opt.relativenumber = true -- set relative numbered lines
 opt.termguicolors = true -- Enables 24 bit RGB colors in the TUI
+opt.showmode = false -- don't show mode as it's already in the status line
 
 -----------------------------------------------------------
 -- Tabs, indent
