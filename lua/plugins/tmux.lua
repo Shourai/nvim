@@ -1,1 +1,1 @@
-return { "aserowy/tmux.nvim" }
+return { "aserowy/tmux.nvim", opts = {} }
