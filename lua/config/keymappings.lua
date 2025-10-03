@@ -33,8 +33,5 @@ map("t", "<C-w>", [[<C-\><C-n><C-w>]], default_opts)
 --  Undotree
 map("n", "<F5>", ":UndotreeToggle<CR>", default_opts)
 
--- Null-ls format file
-map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", default_opts)
-
 -- reload init.lua
 map("n", "<leader>rc", "<cmd>luafile %<cr>", default_opts)
