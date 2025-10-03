@@ -12,6 +12,7 @@ map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>",
 map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", default_opts)
 map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", default_opts)
 map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", default_opts)
+map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').builtin()<cr>", default_opts)
 
 --  Undotree
 map("n", "<F5>", ":UndotreeToggle<CR>", default_opts)
