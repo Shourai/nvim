@@ -7,12 +7,11 @@ map("n", "<C-j>", "<C-w>j", default_opts)
 map("n", "<C-k>", "<C-w>k", default_opts)
 map("n", "<C-l>", "<C-w>l", default_opts)
 
--- telescope
-map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", default_opts)
-map("n", "<leader>fg", "<cmd>lua require('telescope.builtin').live_grep()<cr>", default_opts)
-map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<cr>", default_opts)
-map("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags()<cr>", default_opts)
-map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').builtin()<cr>", default_opts)
+-- fzf-lua
+map("n", "<leader>ff", "<cmd> FzfLua files <cr>", default_opts)
+map("n", "<leader>fb", "<cmd> FzfLua buffers <cr>", default_opts)
+map("n", "<leader>fg", "<cmd> FzfLua grep <cr>", default_opts)
+map("n", "<leader>ft", "<cmd> FzfLua builtin <cr>", default_opts)
 
 -- reload init.lua
 map("n", "<leader>rc", "<cmd>luafile %<cr>", default_opts)
