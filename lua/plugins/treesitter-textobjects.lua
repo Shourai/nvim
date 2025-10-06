@@ -11,14 +11,28 @@ return {
 
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          -- You can optionally set descriptions to the mappings (used in the desc parameter of
-          -- nvim_buf_set_keymap) which plugins like which-key display
-          ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-          -- You can also use captures from other query groups like `locals.scm`
-          ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+          ["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
+          ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
+          ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
+          ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
+
+          ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
+          ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
+
+          ["ai"] = { query = "@conditional.outer", desc = "Select outer part of a conditional" },
+          ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
+
+          ["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
+          ["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
+
+          ["af"] = { query = "@call.outer", desc = "Select outer part of a function call" },
+          ["if"] = { query = "@call.inner", desc = "Select inner part of a function call" },
+
+          ["am"] = { query = "@function.outer", desc = "Select outer part of a method/function definition" },
+          ["im"] = { query = "@function.inner", desc = "Select inner part of a method/function definition" },
+
+          ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
+          ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
         },
         -- You can choose the select mode (default is charwise 'v')
         --
