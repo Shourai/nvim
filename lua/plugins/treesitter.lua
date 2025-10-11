@@ -6,8 +6,9 @@ return {
   main = "nvim-treesitter.configs",
   opts = {
     ensure_installed = {
-      "python", "lua", "vim", "vimdoc", "query", "javascript", "html", "markdown", "markdown_inline"
+      "python", "lua", "vim", "vimdoc", "javascript", "html", "markdown", "markdown_inline"
     },
+    ignore_install = { "tmux" },
     auto_install = true,
     sync_install = false,
     highlight = { enable = true },
