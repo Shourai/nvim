@@ -13,12 +13,20 @@ return {
       sh = { "shellcheck" },
       bash = { "shellcheck" },
       markdown = { "markdownlint-cli2" },
+      json = { "jsonlint" },
+      yaml = { "yamllint" },
     }
 
     local markdownlint = require('lint').linters["markdownlint-cli2"]
     markdownlint.args = {
       "--config",
       vim.fn.stdpath('config') .. '/cfg_linters/global.markdownlint.jsonc',
+    }
+
+    local yamllint = require('lint').linters.yamllint
+    yamllint.args = {
+      "-c",
+      vim.fn.stdpath('config') .. '/cfg_linters/yamllint.yaml',
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost" }, {
