@@ -2,7 +2,7 @@ return {
   "stevearc/conform.nvim",
   opts = {
     formatters_by_ft = {
-      markdown = { "markdownlint" },
+      markdown = { "markdownlint-cli2" },
       sh = { "shellcheck", "shfmt" },
     },
     format_after_save = {

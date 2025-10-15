@@ -12,13 +12,13 @@ return {
     lint.linters_by_ft = {
       sh = { "shellcheck" },
       bash = { "shellcheck" },
-      markdown = { "markdownlint" },
+      markdown = { "markdownlint-cli2" },
     }
 
-    local markdownlint = require('lint').linters.markdownlint
+    local markdownlint = require('lint').linters["markdownlint-cli2"]
     markdownlint.args = {
-      "--disable",
-      "MD013"
+      "--config",
+      vim.fn.stdpath('config') .. '/cfg_linters/global.markdownlint.jsonc',
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost" }, {
