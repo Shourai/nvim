@@ -8,10 +8,12 @@ return {
     ensure_installed = {
       "python", "lua", "vim", "vimdoc", "javascript", "html", "markdown", "markdown_inline"
     },
-    ignore_install = { "tmux" },
-    auto_install = true,
     sync_install = false,
-    highlight = { enable = true },
+    auto_install = true,
+    highlight = {
+      enable = true,
+      disable = { "tmux" }
+    },
 
     incremental_selection = {
       enable = true,
