@@ -8,4 +8,5 @@ vim.lsp.enable({
   "ts_ls"
 })
 
-vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+-- Commented out diagnostic config for the tiny-inline-diagnostic.nvim plugin
+-- vim.diagnostic.config({ virtual_lines = { current_line = false }, virtual_text = false })
