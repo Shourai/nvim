@@ -76,11 +76,5 @@ opt.completeopt = "menu,menuone,noselect"
 -- Misc
 -----------------------------------------------------------
 
--- write file when focus is lost
-cmd("autocmd FocusLost * silent! :wa")
-
 -- write the contents of the file when jumping between jumppoints
 opt.autowriteall = true
-
--- remove whitespace on save
--- cmd [[au BufWritePre * :%s/\s\+$//e]]
