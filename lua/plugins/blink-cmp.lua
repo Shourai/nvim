@@ -51,7 +51,15 @@ return {
     -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
     --
     -- See the fuzzy documentation for more information
-    fuzzy = { implementation = "prefer_rust_with_warning" }
+    fuzzy = { implementation = "prefer_rust_with_warning" },
+    cmdline = {
+      keymap = {
+        -- recommended, as the default keymap will only show and select the next item
+        ['<Tab>'] = { 'show', 'accept' },
+      },
+      completion = { menu = { auto_show = true } },
+    }
+
   },
   opts_extend = { "sources.default" }
 }
