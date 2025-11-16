@@ -6,57 +6,58 @@
 
 local opt = vim.opt -- global/buffer/windows-scoped options, see :h lua-vim-opt
 local cmd = vim.cmd -- execute Vim commands
-local g = vim.g -- global variables
+local g = vim.g     -- global variables
 
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
-g.mapleader = " " -- map leader to space
-opt.mouse = "a" -- allow the mouse to be used in neovim
+g.mapleader = " "                     -- map leader to space
+opt.mouse = "a"                       -- allow the mouse to be used in neovim
 opt.clipboard = "unnamed,unnamedplus" -- allow neovim to access the system clipboard
-opt.swapfile = false -- creates a swapfile
-opt.backup = false -- don't create backup file
-opt.undofile = true -- save undo history to undo file
+opt.swapfile = false                  -- creates a swapfile
+opt.backup = false                    -- don't create backup file
+opt.undofile = true                   -- save undo history to undo file
 
 -----------------------------------------------------------
 -- Clipboard support for OSC 52
 -----------------------------------------------------------
 if vim.env.SSH_TTY ~= nil then
-	local function paste()
-		return {
-			vim.fn.split(vim.fn.getreg(""), "\n"),
-			vim.fn.getregtype(""),
-		}
-	end
+  local function paste()
+    return {
+      vim.fn.split(vim.fn.getreg(""), "\n"),
+      vim.fn.getregtype(""),
+    }
+  end
 
-	vim.g.clipboard = {
-		name = "OSC 52",
-		copy = {
-			["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-			["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-		},
-		paste = {
-			["+"] = paste,
-			["*"] = paste,
-		},
-	}
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = paste,
+      ["*"] = paste,
+    },
+  }
 end
 -----------------------------------------------------------
 -- User Interface
 -----------------------------------------------------------
-opt.conceallevel = 0 -- so that `` is visible in markdown files
+opt.conceallevel = 0       -- so that `` is visible in markdown files
 opt.fileencoding = "utf-8" -- the encoding written to a file
-opt.ignorecase = true -- ignore case in search pattern
-opt.smartcase = true -- smart case
-opt.splitbelow = true -- force all horizontal splits to go below current window
-opt.splitright = true -- force all vertical splits to go to the right of current window
+opt.ignorecase = true      -- ignore case in search pattern
+opt.smartcase = true       -- smart case
+opt.splitbelow = true      -- force all horizontal splits to go below current window
+opt.splitright = true      -- force all vertical splits to go to the right of current window
 opt.lazyredraw = true
 
-opt.cursorline = true -- highlight the current line
-opt.number = true -- set numbered lines
+opt.cursorline = true     -- highlight the current line
+opt.number = true         -- set numbered lines
 opt.relativenumber = true -- set relative numbered lines
-opt.termguicolors = true -- Enables 24 bit RGB colors in the TUI
-opt.showmode = false -- don't show mode as it's already in the status line
+opt.termguicolors = true  -- Enables 24 bit RGB colors in the TUI
+opt.showmode = false      -- don't show mode as it's already in the status line
+opt.scrolloff = 5         -- Minimal number of screen lines to keep above and below the cursor.
 
 -----------------------------------------------------------
 -- Tabs, indent
