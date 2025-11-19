@@ -1,11 +1,15 @@
 --- All available lsp serverss: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 
 vim.lsp.enable({
+  "ansiblels",
+  "lua_ls",
+  "marksman",
   "pyright",
   "ruff",
-  "lua_ls",
+  "terraformls",
+  "tflint",
+  "ts_ls",
   "yamlls",
-  "ts_ls"
 })
 
 -- Commented out diagnostic config for the tiny-inline-diagnostic.nvim plugin

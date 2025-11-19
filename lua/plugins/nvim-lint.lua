@@ -10,10 +10,13 @@ return {
     local lint = require("lint")
 
     lint.linters_by_ft = {
-      sh = { "shellcheck" },
+      ansible = { "ansible-lint" },
       bash = { "shellcheck" },
-      markdown = { "markdownlint-cli2" },
       json = { "jsonlint" },
+      markdown = { "markdownlint-cli2" },
+      python = { "ruff" },
+      sh = { "shellcheck" },
+      terraform = { "tflint", "terraform" },
       yaml = { "yamllint" },
     }
 

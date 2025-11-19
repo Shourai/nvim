@@ -4,6 +4,8 @@ return {
     -- mason, write correct names only
     vim.api.nvim_create_user_command("MasonInstallAll", function()
       local packages = {
+        "ansible-language-server",
+        "ansible-lint",
         "jsonlint",
         "lua-language-server",
         "markdownlint-cli2",
@@ -13,6 +15,9 @@ return {
         "ruff",
         "shellcheck",
         "shfmt",
+        "terraform",
+        "terraform-ls",
+        "tflint",
         "typescript-language-server",
         "yaml-language-server",
         "yamllint",
