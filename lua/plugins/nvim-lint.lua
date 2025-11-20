@@ -16,7 +16,7 @@ return {
       markdown = { "markdownlint-cli2" },
       python = { "ruff" },
       sh = { "shellcheck" },
-      terraform = { "tflint", "terraform" },
+      terraform = { "tflint" },
       yaml = { "yamllint" },
     }
 

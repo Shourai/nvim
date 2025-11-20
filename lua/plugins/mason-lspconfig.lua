@@ -15,7 +15,6 @@ return {
         "ruff",
         "shellcheck",
         "shfmt",
-        "terraform",
         "terraform-ls",
         "tflint",
         "typescript-language-server",
