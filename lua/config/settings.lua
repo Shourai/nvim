@@ -22,13 +22,6 @@ opt.undofile = true                   -- save undo history to undo file
 -- Clipboard support for OSC 52
 -----------------------------------------------------------
 if vim.env.SSH_TTY ~= nil then
-  local function paste()
-    return {
-      vim.fn.split(vim.fn.getreg(""), "\n"),
-      vim.fn.getregtype(""),
-    }
-  end
-
   vim.g.clipboard = {
     name = "OSC 52",
     copy = {
@@ -36,8 +29,8 @@ if vim.env.SSH_TTY ~= nil then
       ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
     },
     paste = {
-      ["+"] = paste,
-      ["*"] = paste,
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
     },
   }
 end
