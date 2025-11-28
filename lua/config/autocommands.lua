@@ -44,6 +44,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+-- Prevents o/O from inheriting comment leader
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+})
 
 -- remove whitespace on save
 -- cmd [[au BufWritePre * :%s/\s\+$//e]]
