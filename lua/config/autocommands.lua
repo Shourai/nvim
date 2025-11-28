@@ -23,6 +23,26 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
+-- Jump to last editing locations
+vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "Auto jump to last position",
+  group = vim.api.nvim_create_augroup("auto-last-position", { clear = true }),
+  callback = function(args)
+    -- Get the mark for the specific buffer that triggered the event
+    local line, col = unpack(vim.api.nvim_buf_get_mark(args.buf, [["]]))
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+
+    -- Validate position: Must be a line > 0 and within the file boundary
+    if line > 0 and line <= line_count then
+      -- Set cursor in the CURRENT window (0 refers to the current/active window)
+      pcall(vim.api.nvim_win_set_cursor, 0, { line, col })
+
+      -- Optional: Center the view on the cursor position
+      vim.cmd("normal! zvzz")
+    end
+  end,
+})
+
 
 -- remove whitespace on save
 -- cmd [[au BufWritePre * :%s/\s\+$//e]]
