@@ -51,5 +51,26 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Use q to close help-like buffers
+vim.api.nvim_create_autocmd("FileType", {
+  desc = "Use q to close help-like buffers",
+  group = vim.api.nvim_create_augroup("q-close", { clear = true }),
+  pattern = { "help", "man", "qf", "lspinfo", "fugitive" },
+  callback = function()
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true, silent = true })
+    vim.bo.buflisted = false
+  end,
+})
+
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+--   desc = "Disable relative numbers in insert",
+--   callback = function() vim.opt.relativenumber = false end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+--   desc = "Enable relative numbers in normal mode",
+--   callback = function() vim.opt.relativenumber = true end,
+-- })
+--
 -- remove whitespace on save
 -- cmd [[au BufWritePre * :%s/\s\+$//e]]
