@@ -4,11 +4,16 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
   -- Define and clear the augroup inline
   group = vim.api.nvim_create_augroup("autosave_on_leave_group", { clear = true }),
   callback = function(args)
+    -- Use 'args.buf' to scope the buffer options correctly if needed,
+    -- but usually vim.bo refers to the current buffer when the autocmd runs.
+
     -- Check if:
-    -- 1. The buffer has modifications (is 'dirty')
-    -- 2. The buffer is a normal, writable file type (not help, terminal, etc.)
-    -- 3. The file is considered writable by Neovim (has a name, not readonly)
-    if vim.bo.modified and vim.bo.buftype == "" and vim.is_writable(args.buf) then
+    -- 1. The buffer has modifications ('modified' is true)
+    -- 2. The buffer is a normal, writable file type ('buftype' is empty string)
+    -- 3. The buffer is not set to 'readonly'
+    -- 4. The buffer has a file name/path assigned (vim.api.nvim_buf_get_name is the most reliable check)
+
+    if vim.bo.modified and vim.bo.buftype == "" and not vim.bo.readonly and vim.api.nvim_buf_get_name(args.buf) ~= "" then
       -- Use 'update' which only writes the file if changes were made
       vim.cmd('silent update')
     end
