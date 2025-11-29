@@ -14,7 +14,7 @@ function RunPythonInTmux()
   -- Send the command to the next tmux pane relative to the current one.
   -- The target pane is specified using the relative index ":.+".
   vim.fn.system({ "tmux", "send-keys", "-t", ":.+", run_cmd })
-  -- Optional: switch focus to the output pane temporarily to show execution
+  -- -- Optional: switch focus to the output pane temporarily to show execution
   -- vim.fn.system({ "tmux", "select-pane", "-t", ":.+" })
   -- -- Optional: switch focus back to the Neovim pane
   -- vim.fn.system({ "tmux", "select-pane", "-t", ":.-" }) -- Use ":.-" for the previous pane (which was the source)
@@ -23,3 +23,6 @@ end
 -- Set a keymap in normal mode (e.g., <Leader>r) to run the function
 vim.api.nvim_set_keymap('n', ',r', ':lua RunPythonInTmux()<CR>',
   { noremap = true, silent = true, desc = "Run current Python file in next tmux pane" })
+
+vim.api.nvim_set_keymap('n', ',pr', ':lua print(vim.fn.system("python3 " .. vim.fn.expand("%")))<CR>',
+  { noremap = true, silent = true, desc = "Run Python file (blocking)" })
