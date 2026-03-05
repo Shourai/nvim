@@ -10,7 +10,7 @@ map("n", "<C-l>", "<C-w>l", default_opts)
 -- fzf-lua
 map("n", "<leader>ff", "<cmd> FzfLua files <cr>", default_opts)
 map("n", "<leader>fb", "<cmd> FzfLua buffers <cr>", default_opts)
-map("n", "<leader>fg", "<cmd> FzfLua grep <cr>", default_opts)
+map("n", "<leader>fg", "<cmd> FzfLua live_grep <cr>", default_opts)
 map("n", "<leader>ft", "<cmd> FzfLua builtin <cr>", default_opts)
 
 -- reload init.lua
