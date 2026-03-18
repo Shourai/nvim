@@ -36,6 +36,9 @@ return {
 
           ["ib"] = { query = "@block.inner", desc = "Select inner part of a markdown code fence" },
           ["ab"] = { query = "@block.outer", desc = "Select outer part of a markdown code fence" },
+
+          ["i`"] = { query = "@block.inner", desc = "Select inner part of a markdown code fence" },
+          ["a`"] = { query = "@block.outer", desc = "Select outer part of a markdown code fence" },
         },
         -- You can choose the select mode (default is charwise 'v')
         --
