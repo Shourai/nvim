@@ -43,7 +43,6 @@ opt.ignorecase = true      -- ignore case in search pattern
 opt.smartcase = true       -- smart case
 opt.splitbelow = true      -- force all horizontal splits to go below current window
 opt.splitright = true      -- force all vertical splits to go to the right of current window
-opt.lazyredraw = true
 
 opt.cursorline = true     -- highlight the current line
 opt.number = true         -- set numbered lines
