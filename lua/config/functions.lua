@@ -6,12 +6,12 @@ end
 -- Function to list panes and prompt the user for selection
 function SelectTmuxTargetPane()
   print("Available Tmux Panes:")
-  -- Get a list of panes with their index, size, and current command
-  local panes_list_raw = vim.fn.system({ "tmux", "list-panes", "-F",
-    "#{pane_index}: #{pane_width}x#{pane_height} [running: #{pane_current_command}" })
+  -- Get a list of panes with their index, size, and current command using modern vim.system
+  local obj = vim.system({ "tmux", "list-panes", "-F",
+    "#{pane_index}: #{pane_width}x#{pane_height} [running: #{pane_current_command}" }):wait()
 
   -- Print each pane info to the messages buffer
-  for line in panes_list_raw:gmatch("[^\n]+") do
+  for line in obj.stdout:gmatch("[^\n]+") do
     print(line)
   end
 
@@ -52,17 +52,17 @@ function RunPythonInTmux()
   local target_pane = vim.g.python_tmux_target_pane_index
   local run_cmd = "python3 " .. vim.fn.shellescape(file_name) .. "\n"
 
-  -- Check if the target pane actually exists
-  local pane_exists = vim.fn.system({ "tmux", "list-panes", "-t", target_pane })
-  if pane_exists:find("no such pane") or pane_exists:find("invalid pane") then
+  -- Check if the target pane actually exists using vim.system
+  local pane_exists_obj = vim.system({ "tmux", "list-panes", "-t", target_pane }):wait()
+  if pane_exists_obj.code ~= 0 then
     print("Error: Saved target pane " .. target_pane .. " no longer exists. Please use <Leader>ts to re-select.")
     vim.g.python_tmux_target_pane_index = "" -- Reset the flag
     return
   end
 
   -- Execute commands in the determined target pane
-  vim.fn.system({ "tmux", "send-keys", "-t", target_pane, "clear", "Enter" })
-  vim.fn.system({ "tmux", "send-keys", "-t", target_pane, run_cmd })
+  vim.system({ "tmux", "send-keys", "-t", target_pane, "clear", "Enter" })
+  vim.system({ "tmux", "send-keys", "-t", target_pane, run_cmd })
 end
 
 vim.api.nvim_set_keymap('n', ',r', ':lua RunPythonInTmux()<CR>', {
