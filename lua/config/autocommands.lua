@@ -85,6 +85,14 @@ vim.api.nvim_create_autocmd("FileType", {
 --   desc = "Enable relative numbers in normal mode",
 --   callback = function() vim.opt.relativenumber = true end,
 -- })
---
 -- remove whitespace on save
--- cmd [[au BufWritePre * :%s/\s\+$//e]]
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   desc = "Remove trailing whitespace on save",
+--   group = vim.api.nvim_create_augroup("TrimWhiteSpace", { clear = true }),
+--   pattern = "*",
+--   callback = function()
+--     local save_cursor = vim.fn.getpos(".")
+--     vim.cmd([[%s/\s\+$//e]])
+--     vim.fn.setpos(".", save_cursor)
+--   end,
+-- })
