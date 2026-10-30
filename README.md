@@ -4,10 +4,12 @@ Neovim config for version 0.12+, used on Arch Linux, Ubuntu and macOS. Cloned to
 and linked to `~/.config/nvim` by the [dotfiles](https://github.com/Shourai/dotfiles) setup.
 
 Requirements: the `tree-sitter` CLI, a C compiler, `curl` and `tar` (parsers); `npm`/`node` and `python3`
-(`:MasonInstallAll`); `fzf`, `ripgrep` and `fd` (fzf-lua); `lazygit` (`<leader>g`). All are installed by the
-dotfiles package lists.
+(`:MasonInstallAll`); `fzf`, `ripgrep` and `fd` (fzf-lua); `lazygit` (`<leader>g`);
+`tofu` (OpenTofu, Terraform formatting). All are installed by the dotfiles package lists.
 
 Update: `:Lazy sync`, `:MasonUpdate`, `:TSUpdate`, then `:checkhealth`.
+Plugin versions aren't pinned (`lazy-lock.json` is gitignored), so a bad update can't be rolled
+back from this repo; `:Lazy restore` only helps while the local lock file still has the old versions.
 
 Inspired by:\
 <https://www.youtube.com/@vhyrro>\
