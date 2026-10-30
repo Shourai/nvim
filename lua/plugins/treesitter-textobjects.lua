@@ -1,11 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
   branch = "main", -- Ensure you are tracking the main branch
-  init = function()
-    -- Disable built-in ftplugin mappings to prevent conflicts with your custom ones
-    -- This is recommended by the plugin documentation
-    vim.g.no_plugin_maps = true
-  end,
   config = function()
     local ts_select = require("nvim-treesitter-textobjects.select")
 
@@ -27,8 +22,6 @@ return {
       -- Assignments
       ["a="] = "@assignment.outer",
       ["i="] = "@assignment.inner",
-      ["l="] = "@assignment.lhs",
-      ["r="] = "@assignment.rhs",
       -- Parameters/Arguments
       ["aa"] = "@parameter.outer",
       ["ia"] = "@parameter.inner",
@@ -45,17 +38,34 @@ return {
       -- Classes
       ["ac"] = "@class.outer",
       ["ic"] = "@class.inner",
-      -- Blocks/Markdown
+    }
+
+    -- Code blocks, Markdown only
+    local markdown_mappings = {
       ["ib"] = "@block.inner",
       ["ab"] = "@block.outer",
       ["i`"] = "@block.inner",
       ["a`"] = "@block.outer",
     }
 
-    for key, query in pairs(mappings) do
+    local function map(key, query, buf)
       vim.keymap.set({ "x", "o" }, key, function()
         ts_select.select_textobject(query, "textobjects")
-      end, { desc = "Select " .. query })
+      end, { buffer = buf, desc = "Select " .. query })
     end
+
+    for key, query in pairs(mappings) do
+      map(key, query)
+    end
+
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("MarkdownTextobjects", { clear = true }),
+      pattern = "markdown",
+      callback = function(args)
+        for key, query in pairs(markdown_mappings) do
+          map(key, query, args.buf)
+        end
+      end,
+    })
   end,
 }

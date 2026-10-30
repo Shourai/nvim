@@ -1,6 +1,7 @@
 return {
   "mason-org/mason-lspconfig.nvim",
-  opts = {},
+  -- Don't start every installed server; lua/config/lsp.lua is the list of servers to start
+  opts = { automatic_enable = false },
   init = function()
     -- :MasonInstallAll installs every tool this config uses (Mason package names)
     vim.api.nvim_create_user_command("MasonInstallAll", function()

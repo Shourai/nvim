@@ -34,6 +34,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   desc = "Auto jump to last position",
   group = vim.api.nvim_create_augroup("auto-last-position", { clear = true }),
   callback = function(args)
+    -- Skip git commit/rebase messages and xxd, as in :h restore-cursor. The filetype may not
+    -- be set yet when BufReadPost fires, so the git files are also matched by name.
+    local name = vim.fs.basename(vim.api.nvim_buf_get_name(args.buf))
+    if vim.tbl_contains({ "gitcommit", "gitrebase", "xxd" }, vim.bo[args.buf].filetype)
+        or vim.tbl_contains({ "COMMIT_EDITMSG", "git-rebase-todo" }, name) then
+      return
+    end
+
     -- Get the mark for the specific buffer that triggered the event
     local line, col = unpack(vim.api.nvim_buf_get_mark(args.buf, [["]]))
     local line_count = vim.api.nvim_buf_line_count(args.buf)
@@ -49,13 +57,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Prevents o/O from inheriting comment leader
--- Except in git commit messages, file trees and help, where auto comments are wanted.
+-- Prevents o/O and Enter from inheriting the comment leader
+-- Except in help buffers, which keep comment continuation (gitcommit's ftplugin already removes c/r/o).
 -- (Autocmd patterns can't exclude filetypes with "!", so the check is in the callback.)
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("NoAutoComment", { clear = true }),
   callback = function(args)
-    if vim.tbl_contains({ "gitcommit", "NvimTree", "help" }, args.match) then
+    if vim.tbl_contains({ "help" }, args.match) then
       return
     end
     -- Remove the 'c', 'r', and 'o' flags for this buffer only

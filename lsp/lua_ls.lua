@@ -2,8 +2,11 @@
 return {
   settings = {
     Lua = {
+      -- Neovim runs LuaJIT; only the Neovim runtime is added (plugins are not indexed)
+      runtime = { version = "LuaJIT" },
       workspace = {
-        library = vim.api.nvim_get_runtime_file('', true)
+        checkThirdParty = false,
+        library = { vim.env.VIMRUNTIME },
       }
     }
   }

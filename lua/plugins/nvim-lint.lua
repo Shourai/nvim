@@ -11,8 +11,6 @@ return {
 
     -- Python (ruff) and Terraform (tflint) are linted by their LSPs, see lua/config/lsp.lua
     lint.linters_by_ft = {
-      ansible = { "ansible-lint" },
-      bash = { "shellcheck" },
       json = { "jsonlint" },
       markdown = { "markdownlint-cli2" },
       sh = { "shellcheck" },
@@ -31,7 +29,8 @@ return {
       vim.fn.stdpath('config') .. '/cfg_linters/yamllint.yaml',
     }
 
-    vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+      group = vim.api.nvim_create_augroup("NvimLint", { clear = true }),
       callback = function()
         -- try_lint without arguments runs the linters defined in `linters_by_ft`
         -- for the current filetype

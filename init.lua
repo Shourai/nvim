@@ -1,4 +1,5 @@
 require("config/settings")
+require("config/filetypes")
 require("config/keymappings")
 require("config/lazy")
 require("config/lsp")
