@@ -5,8 +5,11 @@ return {
   config = function()
     local ts = require("nvim-treesitter")
 
-    -- Install Parsers
-    ts.install({ "python", "lua", "vim", "vimdoc", "javascript", "html", "markdown", "markdown_inline" })
+    -- Install parsers (async; already installed ones are skipped). Needs the tree-sitter CLI.
+    ts.install({
+      "bash", "css", "hcl", "html", "javascript", "json", "lua", "markdown", "markdown_inline",
+      "python", "regex", "terraform", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
+    })
 
     vim.api.nvim_create_autocmd('FileType', {
       callback = function(args)

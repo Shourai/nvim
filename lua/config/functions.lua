@@ -26,7 +26,7 @@ function SelectTmuxTargetPane()
 
   -- Store the valid index globally
   vim.g.python_tmux_target_pane_index = selected_index
-  print("\nPython runner target set to pane index: " .. selected_index .. ". Use <,r> to run code.")
+  print("\nPython runner target set to pane index: " .. selected_index .. ". Use <leader>pr to run code.")
   return true
 end
 
@@ -65,17 +65,13 @@ function RunPythonInTmux()
   vim.system({ "tmux", "send-keys", "-t", target_pane, run_cmd })
 end
 
-vim.api.nvim_set_keymap('n', ',r', ':lua RunPythonInTmux()<CR>', {
-  noremap = true,
-  silent = true,
-  desc = "Run current Python file (selects pane on first run)"
-})
+-- Python runner keys (<leader> is Space)
+vim.keymap.set("n", "<leader>pr", RunPythonInTmux,
+  { silent = true, desc = "Run current Python file in a tmux pane (selects pane on first run)" })
 
-vim.api.nvim_set_keymap('n', '<Leader>ts', ':lua SelectTmuxTargetPane()<CR>', {
-  noremap = true,
-  silent = true,
-  desc = "Manually select a different target tmux pane number"
-})
+vim.keymap.set("n", "<leader>ts", SelectTmuxTargetPane,
+  { silent = true, desc = "Manually select a different target tmux pane number" })
 
-vim.api.nvim_set_keymap('n', ',pr', ':lua print(vim.fn.system("python3 " .. vim.fn.expand("%")))<CR>',
-  { noremap = true, silent = true, desc = "Run Python file (blocking)" })
+vim.keymap.set("n", "<leader>pp", function()
+  print(vim.fn.system({ "python3", vim.fn.expand("%") }))
+end, { silent = true, desc = "Run current Python file and show its output (blocking)" })

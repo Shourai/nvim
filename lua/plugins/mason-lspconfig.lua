@@ -1,7 +1,8 @@
 return {
   "mason-org/mason-lspconfig.nvim",
-  opts = {
-    -- mason, write correct names only
+  opts = {},
+  init = function()
+    -- :MasonInstallAll installs every tool this config uses (Mason package names)
     vim.api.nvim_create_user_command("MasonInstallAll", function()
       local packages = {
         "ansible-language-server",
@@ -23,7 +24,7 @@ return {
       }
       vim.cmd("MasonInstall " .. table.concat(packages, " "))
     end, {})
-  },
+  end,
   dependencies = {
     { "mason-org/mason.nvim", opts = {} },
   },

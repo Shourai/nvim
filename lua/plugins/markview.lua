@@ -1,9 +1,11 @@
 return {
   "OXY2DEV/markview.nvim",
+  lazy = false,
   opts = {
     preview = { enable = false },
-    vim.api.nvim_set_keymap("n", "<leader>ms", "<CMD>Markview splitToggle<CR>",
-      { desc = "Toggles `markview` splitview." }),
+  },
+  keys = {
+    { "<leader>ms", "<CMD>Markview splitToggle<CR>", desc = "Toggles `markview` splitview." },
   },
 
   -- Completion for `blink.cmp`

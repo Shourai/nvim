@@ -50,18 +50,16 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 })
 
 -- Prevents o/O from inheriting comment leader
+-- Except in git commit messages, file trees and help, where auto comments are wanted.
+-- (Autocmd patterns can't exclude filetypes with "!", so the check is in the callback.)
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("NoAutoComment", { clear = true }),
-  -- The 'pattern' defines *which* file types this applies to.
-  -- '*': Apply this to all file types by default.
-  -- '!gitcommit': EXCEPT the git commit message buffer, where you DO want auto comments.
-  -- '!NvimTree': EXCEPT file tree views.
-  -- '!help': EXCEPT help files.
-  -- '!markdown': You might keep this on for prose/documentation writing.
-  pattern = { "*", "!gitcommit", "!NvimTree", "!help" },
-  callback = function()
-    -- Set the buffer-local option to remove the 'c', 'r', and 'o' flags
-    vim.opt.formatoptions = vim.opt.formatoptions - { 'c', 'r', 'o' }
+  callback = function(args)
+    if vim.tbl_contains({ "gitcommit", "NvimTree", "help" }, args.match) then
+      return
+    end
+    -- Remove the 'c', 'r', and 'o' flags for this buffer only
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
   end,
 })
 

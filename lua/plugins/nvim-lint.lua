@@ -9,14 +9,13 @@ return {
   config = function()
     local lint = require("lint")
 
+    -- Python (ruff) and Terraform (tflint) are linted by their LSPs, see lua/config/lsp.lua
     lint.linters_by_ft = {
       ansible = { "ansible-lint" },
       bash = { "shellcheck" },
       json = { "jsonlint" },
       markdown = { "markdownlint-cli2" },
-      python = { "ruff" },
       sh = { "shellcheck" },
-      terraform = { "tflint" },
       yaml = { "yamllint" },
     }
 
