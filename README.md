@@ -35,7 +35,7 @@ nvim               # first start bootstraps lazy.nvim, installs plugins and pars
 | `lua/config/`         | settings, filetypes, keymaps, autocommands, LSP list, Python runner, lazy.nvim |
 | `lua/plugins/`        | one file per plugin (lazy.nvim spec)                             |
 | `after/ftplugin/`     | per-filetype setup (Python runner keys)                          |
-| `lsp/`                | overrides on top of nvim-lspconfig's server configs              |
+| `lsp/`                | overrides on top of nvim-lspconfig's server configs (Ruff's hover is off in favour of Pyright) |
 | `cfg_linters/`        | config for markdownlint and yamllint                             |
 
 ## LSPs, formatters and linters
