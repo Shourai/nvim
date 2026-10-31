@@ -1,31 +1,21 @@
 # Neovim
 
-Neovim config for version 0.12+, used on Arch Linux, Ubuntu and macOS. Cloned to `~/Documents/github/nvim`
-and linked to `~/.config/nvim` by the [dotfiles](https://github.com/Shourai/dotfiles) setup.
-
-Requirements: the `tree-sitter` CLI, a C compiler, `curl` and `tar` (parsers); `npm`/`node` and `python3`
-(`:MasonInstallAll`); `fzf`, `ripgrep` and `fd` (fzf-lua); `lazygit` (`<leader>g`);
-`tofu` (OpenTofu, Terraform formatting). All are installed by the dotfiles package lists.
-
-Update: `:Lazy sync`, `:MasonUpdate`, `:TSUpdate`, then `:checkhealth`.
-Plugin versions aren't pinned (`lazy-lock.json` is gitignored), so a bad update can't be rolled
-back from this repo; `:Lazy restore` only helps while the local lock file still has the old versions.
-
-Inspired by:\
-<https://www.youtube.com/@vhyrro>\
-<https://www.youtube.com/@MrJakob>\
-<https://www.youtube.com/@theradlectures>\
-<https://www.youtube.com/@joseanmartinez>
-
-## Install
-
-Without the dotfiles setup, clone the repo straight to the config directory:
+Neovim 0.12+ config for Arch Linux, Ubuntu and macOS. The [dotfiles](https://github.com/Shourai/dotfiles)
+setup clones it to `~/Documents/github/nvim`, links it to `~/.config/nvim` and installs everything
+below. Without the dotfiles:
 
 ```sh
 git clone git@github.com:Shourai/nvim.git ~/.config/nvim
-nvim               # first start bootstraps lazy.nvim, installs plugins and parsers
+nvim               # first start installs lazy.nvim, the plugins and the parsers
 :MasonInstallAll   # LSP servers, formatters and linters
 ```
+
+Needs: `tree-sitter` CLI, a C compiler, `curl`, `tar` (parsers); `npm`/`node`, `python3`, `unzip`
+(Mason); `fzf`, `ripgrep`, `fd` (fzf-lua); `lazygit` (`<leader>g`); `tofu` (Terraform formatting).
+
+**Update**: `:Lazy sync`, `:MasonUpdate`, `:TSUpdate`, then `:checkhealth`. Plugin versions aren't
+pinned (`lazy-lock.json` is gitignored): `:Lazy restore` can only go back to what the local lock
+file still holds.
 
 ## Layout
 
@@ -35,19 +25,18 @@ nvim               # first start bootstraps lazy.nvim, installs plugins and pars
 | `lua/config/`         | settings, filetypes, keymaps, autocommands, LSP list, Python runner, lazy.nvim |
 | `lua/plugins/`        | one file per plugin (lazy.nvim spec)                             |
 | `after/ftplugin/`     | per-filetype setup (Python runner keys)                          |
-| `lsp/`                | overrides on top of nvim-lspconfig's server configs (Ruff's hover is off in favour of Pyright) |
-| `cfg_linters/`        | config for markdownlint and yamllint                             |
+| `lsp/`                | overrides on top of nvim-lspconfig's configs (Ruff's hover is off; Pyright's is used) |
+| `cfg_linters/`        | markdownlint and yamllint config                                 |
 
 ## LSPs, formatters and linters
 
-| What        | Where                       | Notes                                                   |
-|-------------|-----------------------------|---------------------------------------------------------|
-| LSP servers | `lua/config/lsp.lua`        | `lsp.lua` is the list of servers that start; configs come from nvim-lspconfig, `lsp/` overrides them |
-| Formatters  | `lua/plugins/conform.lua`   | format on save; Terraform via OpenTofu (`tofu fmt`); unlisted filetypes use the LSP |
-| Linters     | `lua/plugins/nvim-lint.lua` | run on read, save and leaving insert mode; Python and Terraform are linted by their LSPs |
-| Parsers     | `lua/plugins/treesitter.lua`| installed automatically; needs the `tree-sitter` CLI, a C compiler, `curl` and `tar` |
-
-Install all servers, formatters and linters with `:MasonInstallAll`.
+| What        | Where                        | Notes                                                   |
+|-------------|------------------------------|---------------------------------------------------------|
+| LSP servers | `lua/config/lsp.lua`         | the servers to start; configs from nvim-lspconfig, overridden by `lsp/` |
+| Formatters  | `lua/plugins/conform.lua`    | on `:w`; unlisted filetypes use the LSP                 |
+| Linters     | `lua/plugins/nvim-lint.lua`  | on read, save and leaving insert mode; Python and Terraform via their LSPs |
+| Parsers     | `lua/plugins/treesitter.lua` | installed automatically                                 |
+| Mason tools | `lua/plugins/mason.lua`      | the list `:MasonInstallAll` installs; keep it in sync with the three above |
 
 ## Keys
 
@@ -58,17 +47,15 @@ Install all servers, formatters and linters with `:MasonInstallAll`.
 | `<leader>ff` / `fb` / `fg` / `ft` | fzf-lua: files / buffers / live grep / all pickers |
 | `<leader>g`                 | lazygit                                              |
 | `<leader>ms`                | markview split preview                               |
-| `<leader>pr`                | run the current Python file in a tmux pane (Python buffers only) |
-| `<leader>pp`                | run the current Python file and show the output when it exits (Python buffers only) |
-| `<leader>ts`                | choose the tmux pane for `<leader>pr` (Python buffers only) |
-| `<leader>rc`                | source the current Lua file (useful for `lua/config` files; warns on plugin specs, which need `:restart`) |
+| `<leader>pr`                | Python: run the file in a tmux pane                  |
+| `<leader>pp`                | Python: run the file, show the output when it exits  |
+| `<leader>ts`                | Python: choose the tmux pane for `<leader>pr`        |
+| `<leader>rc`                | source the current Lua file (plugin specs need `:restart`) |
 | `Ctrl-h/j/k/l`              | move between splits and tmux panes (tmux.nvim)       |
-| `Alt-h/j/k/l`               | resize splits (tmux.nvim)                            |
+| `Alt-h/j/k/l`               | resize splits (tmux.nvim); not on macOS, AeroSpace takes them |
 | `Ctrl-Alt-h/j/k/l`          | swap panes (tmux.nvim)                               |
 
-On macOS AeroSpace takes `Alt-h/j/k/l`, so the Alt resize keys only work on Linux.
-
-LSP keys are Neovim's defaults (`:h lsp-defaults`), no `on_attach` needed:
+LSP keys are Neovim's defaults (`:h lsp-defaults`):
 
 | Keys                     | What it does                                         |
 |--------------------------|------------------------------------------------------|
@@ -80,13 +67,19 @@ LSP keys are Neovim's defaults (`:h lsp-defaults`), no `on_attach` needed:
 
 ## Behaviour worth knowing
 
-- Modified buffers are saved automatically when you leave the buffer or Neovim loses focus, and files are
-  formatted on `:w` (autosaves skip formatting, so switching windows never waits on a formatter).
-- `autowriteall` is on: `:q`, `:e` and switching buffers write modified files without asking.
-- Completion (blink.cmp) uses the super-tab preset: `Tab` accepts.
-- Text objects: `am`/`im` function, `af`/`if` call, `ac`/`ic` class, `aa`/`ia` parameter, `ai`/`ii` conditional,
-  `al`/`il` loop, `a=`/`i=` assignment; `ab`/`ib` and `` a` ``/`` i` `` code blocks in Markdown only.
-- nvim-surround: `ys` adds, `ds` deletes and `cs` changes surroundings.
+- **Edits are written without asking**: modified buffers are saved when you leave them or Neovim
+  loses focus, and `autowriteall` makes `:q`, `:e` and buffer switches write too. Formatting runs
+  on writes you trigger (`:w`, and `:q`/`:e` through `autowriteall`), not on the leave/focus
+  autosaves.
+- Completion (blink.cmp): `Tab` accepts (super-tab preset).
+- Text objects: `am`/`im` function, `af`/`if` call, `ac`/`ic` class, `aa`/`ia` parameter,
+  `ai`/`ii` conditional, `al`/`il` loop, `a=`/`i=` assignment; in Markdown also `ab`/`ib` and
+  `` a` ``/`` i` `` code blocks.
+- nvim-surround: `ys` adds, `ds` deletes, `cs` changes surroundings.
 - `q` closes help, man, quickfix and checkhealth windows.
-- Over SSH, yanks reach the local clipboard via OSC 52, but `p` pastes Neovim's own register;
-  paste text copied outside Neovim with the terminal's paste key.
+- Over SSH, yanks reach the local clipboard (OSC 52), but `p` pastes Neovim's own register: paste
+  text copied outside Neovim with the terminal's paste key.
+
+Inspired by [vhyrro](https://www.youtube.com/@vhyrro), [MrJakob](https://www.youtube.com/@MrJakob),
+[theradlectures](https://www.youtube.com/@theradlectures) and
+[joseanmartinez](https://www.youtube.com/@joseanmartinez).
