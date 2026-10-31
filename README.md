@@ -24,6 +24,7 @@ Inspired by:\
 | `init.lua`            | loads the files in `lua/config/`                                 |
 | `lua/config/`         | settings, filetypes, keymaps, autocommands, LSP list, Python runner, lazy.nvim |
 | `lua/plugins/`        | one file per plugin (lazy.nvim spec)                             |
+| `after/ftplugin/`     | per-filetype setup (Python runner keys)                          |
 | `lsp/`                | overrides on top of nvim-lspconfig's server configs              |
 | `cfg_linters/`        | config for markdownlint and yamllint                             |
 

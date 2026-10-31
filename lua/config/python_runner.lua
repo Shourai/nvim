@@ -1,10 +1,13 @@
--- Global variable to store the selected target pane ID (e.g. "%5")
-if vim.g.python_tmux_target_pane == nil then
-  vim.g.python_tmux_target_pane = "" -- Empty string means unset
-end
+-- Python runner: run the current Python file in another tmux pane (<leader>pr) or show its
+-- output in Neovim (<leader>pp). The keys are set in after/ftplugin/python.lua.
+local M = {}
 
--- Function to list panes and prompt the user for selection
-local function select_tmux_target_pane()
+-- tmux pane ID (e.g. "%5") that <leader>pr sends to; nil until chosen with <leader>ts
+local target_pane = nil
+
+-- List the panes of the current tmux window and ask which one to send to.
+-- Returns true when a pane was chosen.
+function M.select_pane()
   print("Available Tmux Panes:")
   -- List the panes of the current window with their index, id, size and current command
   local obj = vim.system({ "tmux", "list-panes", "-F",
@@ -41,14 +44,13 @@ local function select_tmux_target_pane()
     return false
   end
 
-  -- Store the pane ID globally
-  vim.g.python_tmux_target_pane = pane_id
+  target_pane = pane_id
   print("\nPython runner target set to pane " .. selected_index .. " (" .. pane_id .. "). Use <leader>pr to run code.")
   return true
 end
 
--- Main function to run the Python script
-local function run_python_in_tmux()
+-- Save and run the current file in the target pane, asking for a pane on first use
+function M.run_in_tmux()
   local file_name = vim.api.nvim_buf_get_name(0)
 
   if not file_name:match("%.py$") then
@@ -58,22 +60,19 @@ local function run_python_in_tmux()
 
   vim.cmd.update()
 
-  -- === Check if the target is set, if not, call the selection function ===
-  if vim.g.python_tmux_target_pane == "" then
+  if not target_pane then
     print("Target pane not yet selected. Please select one below:")
     -- If selection fails (user cancels input), stop execution
-    if not select_tmux_target_pane() then
+    if not M.select_pane() then
       return
     end
   end
-
-  local target_pane = vim.g.python_tmux_target_pane
 
   -- Check if the target pane still exists (tmux 3.8 exits 0 with empty output for a missing pane)
   local exists = vim.system({ "tmux", "display-message", "-p", "-t", target_pane, "#{pane_id}" }):wait()
   if exists.code ~= 0 or vim.trim(exists.stdout or "") ~= target_pane then
     print("Error: Saved target pane " .. target_pane .. " no longer exists. Please use <Leader>ts to re-select.")
-    vim.g.python_tmux_target_pane = "" -- Reset the flag
+    target_pane = nil
     return
   end
 
@@ -82,20 +81,10 @@ local function run_python_in_tmux()
     "clear; python3 " .. vim.fn.shellescape(file_name), "Enter" })
 end
 
--- Python runner keys (<leader> is Space), only in Python buffers
-vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("PythonRunner", { clear = true }),
-  pattern = "python",
-  callback = function(args)
-    vim.keymap.set("n", "<leader>pr", run_python_in_tmux,
-      { buffer = args.buf, silent = true, desc = "Run current Python file in a tmux pane (selects pane on first run)" })
+-- Save and run the current file, printing its output (blocking)
+function M.run_and_show()
+  vim.cmd.update()
+  print(vim.fn.system({ "python3", vim.fn.expand("%") }))
+end
 
-    vim.keymap.set("n", "<leader>ts", select_tmux_target_pane,
-      { buffer = args.buf, silent = true, desc = "Manually select a different target tmux pane number" })
-
-    vim.keymap.set("n", "<leader>pp", function()
-      vim.cmd.update()
-      print(vim.fn.system({ "python3", vim.fn.expand("%") }))
-    end, { buffer = args.buf, silent = true, desc = "Run current Python file and show its output (blocking)" })
-  end,
-})
+return M
