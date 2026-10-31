@@ -1,8 +1,6 @@
+-- Fuzzy finder (files, buffers, grep); keys are in lua/config/keymappings.lua
 return {
   "ibhagwan/fzf-lua",
-  -- optional for icon support
-  dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- or if using mini.icons/mini.nvim
-  -- dependencies = { "nvim-mini/mini.icons" },
-  opts = {}
+  dependencies = { "nvim-tree/nvim-web-devicons" }, -- file icons
+  opts = {},
 }

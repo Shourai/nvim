@@ -1,4 +1,6 @@
---- All available lsp serverss: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+-- LSP servers to start. Configs come from nvim-lspconfig (list of available servers:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md), local overrides from lsp/.
+-- Keymaps are Neovim's defaults (K, grn, gra, grr, gri, grt, gO, Ctrl-s), see :h lsp-defaults.
 
 vim.lsp.enable({
   "ansiblels",
@@ -11,6 +13,3 @@ vim.lsp.enable({
   "ts_ls",
   "yamlls",
 })
-
--- Commented out diagnostic config for the tiny-inline-diagnostic.nvim plugin
--- vim.diagnostic.config({ virtual_lines = { current_line = false }, virtual_text = false })

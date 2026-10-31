@@ -3,6 +3,7 @@ return {
   opts = {
     -- Filetypes not listed (Python, Lua) are formatted by their LSP
     formatters_by_ft = {
+      -- yaml.ansible buffers match "ansible" before "yaml", so they get ansible-lint, not prettier
       ansible = { "ansible-lint" },
       css = { "prettier" },
       html = { "prettier" },

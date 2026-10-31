@@ -17,6 +17,16 @@ Inspired by:\
 <https://www.youtube.com/@theradlectures>\
 <https://www.youtube.com/@joseanmartinez>
 
+## Install
+
+Without the dotfiles setup, clone the repo straight to the config directory:
+
+```sh
+git clone git@github.com:Shourai/nvim.git ~/.config/nvim
+nvim               # first start bootstraps lazy.nvim, installs plugins and parsers
+:MasonInstallAll   # LSP servers, formatters and linters
+```
+
 ## Layout
 
 | Path                  | Contains                                                         |
@@ -58,10 +68,21 @@ Install all servers, formatters and linters with `:MasonInstallAll`.
 
 On macOS AeroSpace takes `Alt-h/j/k/l`, so the Alt resize keys only work on Linux.
 
+LSP keys are Neovim's defaults (`:h lsp-defaults`), no `on_attach` needed:
+
+| Keys                     | What it does                                         |
+|--------------------------|------------------------------------------------------|
+| `K`                      | hover                                                |
+| `grn` / `gra` / `grr`    | rename / code action / references                    |
+| `gri` / `grt` / `gO`     | implementation / type definition / document symbols  |
+| `Ctrl-s` (insert)        | signature help                                       |
+| `[d` / `]d`              | previous / next diagnostic                           |
+
 ## Behaviour worth knowing
 
 - Modified buffers are saved automatically when you leave the buffer or Neovim loses focus, and files are
   formatted on save.
+- `autowriteall` is on: `:q`, `:e` and switching buffers write modified files without asking.
 - Completion (blink.cmp) uses the super-tab preset: `Tab` accepts.
 - Text objects: `am`/`im` function, `af`/`if` call, `ac`/`ic` class, `aa`/`ia` parameter, `ai`/`ii` conditional,
   `al`/`il` loop, `a=`/`i=` assignment; `ab`/`ib` and `` a` ``/`` i` `` code blocks in Markdown only.

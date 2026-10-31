@@ -1,6 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  lazy = false,
+  lazy = false, -- nvim-treesitter (main branch) does not support lazy-loading
   build = ':TSUpdate',
   config = function()
     local ts = require("nvim-treesitter")
@@ -18,9 +18,6 @@ return {
 
       -- enables syntax highlighting and other treesitter features
       vim.treesitter.start(buf, language)
-
-      -- enables treesitter based indentation
-      -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end
 
     -- Installing parsers needs the tree-sitter CLI, curl, tar and a C compiler
