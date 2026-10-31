@@ -8,44 +8,34 @@ local target_pane = nil
 -- List the panes of the current tmux window and ask which one to send to.
 -- Returns true when a pane was chosen.
 function M.select_pane()
-  print("Available Tmux Panes:")
-  -- List the panes of the current window with their index, id, size and current command
-  local obj = vim.system({ "tmux", "list-panes", "-F",
-    "#{pane_index}: #{pane_id} #{pane_width}x#{pane_height} [running: #{pane_current_command}]" }):wait()
-  if obj.code ~= 0 then
+  -- One tmux call both lists the panes (index, id, size, command) and maps index -> pane ID
+  local res = vim.system({ "tmux", "list-panes", "-F",
+    "#{pane_index} #{pane_id} #{pane_width}x#{pane_height} [running: #{pane_current_command}]" },
+    { text = true }):wait()
+  if res.code ~= 0 then
     print("Error: could not list tmux panes (not inside tmux?)")
     return false
   end
 
-  -- Print each pane info to the messages buffer
-  for line in obj.stdout:gmatch("[^\n]+") do
-    print(line)
+  print("Available Tmux Panes:")
+  local ids = {} -- pane index (string) -> pane ID
+  for index, id, rest in res.stdout:gmatch("(%d+) (%%%d+) ([^\n]*)") do
+    ids[index] = id
+    print(index .. ": " .. id .. " " .. rest)
   end
 
-  -- Prompt the user to input the desired index
-  local selected_index = vim.fn.input("Enter the target pane number (index): ")
-
-  -- Validate input
-  if selected_index == "" or tonumber(selected_index) == nil then
-    print("Invalid input or selection cancelled. Target not set.")
+  local selected_index = vim.trim(vim.fn.input("Enter the target pane number (index): "))
+  if selected_index == "" then
+    print("\nSelection cancelled. Target not set.")
+    return false
+  end
+  if not ids[selected_index] then
+    print("\nNo pane with index '" .. selected_index .. "' in this window. Target not set.")
     return false
   end
 
-  -- Resolve the index to the pane ID in the current window
-  local ids = vim.system({ "tmux", "list-panes", "-F", "#{pane_index} #{pane_id}" }):wait()
-  local pane_id
-  for index, id in (ids.stdout or ""):gmatch("(%d+) (%%%d+)") do
-    if index == selected_index then
-      pane_id = id
-    end
-  end
-  if not pane_id then
-    print("\nNo pane with index " .. selected_index .. " in this window. Target not set.")
-    return false
-  end
-
-  target_pane = pane_id
-  print("\nPython runner target set to pane " .. selected_index .. " (" .. pane_id .. "). Use <leader>pr to run code.")
+  target_pane = ids[selected_index]
+  print("\nPython runner target set to pane " .. selected_index .. " (" .. target_pane .. "). Use <leader>pr to run code.")
   return true
 end
 
@@ -81,10 +71,18 @@ function M.run_in_tmux()
     "clear; python3 " .. vim.fn.shellescape(file_name), "Enter" })
 end
 
--- Save and run the current file, printing its output (blocking)
+-- Save and run the current file; show stdout+stderr when it exits. Async, so Neovim
+-- stays usable while the script runs (output ends up in :messages).
 function M.run_and_show()
   vim.cmd.update()
-  print(vim.fn.system({ "python3", vim.fn.expand("%") }))
+  local file = vim.api.nvim_buf_get_name(0)
+  vim.system({ "python3", file }, { text = true }, function(res)
+    vim.schedule(function() -- vim.system callbacks run outside the main loop
+      local out = vim.trim((res.stdout or "") .. (res.stderr or ""))
+      vim.notify(out ~= "" and out or "(no output)",
+        res.code == 0 and vim.log.levels.INFO or vim.log.levels.ERROR)
+    end)
+  end)
 end
 
 return M

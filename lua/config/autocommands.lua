@@ -1,21 +1,20 @@
--- Autosave when leaving buffer or if focus is lost
+-- Autosave on leaving a buffer or losing focus, so unsaved changes never stay only in memory
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
-  desc = "Autosave modified buffers when focus is lost or buffer is left",
-  -- Define and clear the augroup inline
+  desc = "Autosave modified file buffers",
   group = vim.api.nvim_create_augroup("autosave_on_leave_group", { clear = true }),
   callback = function(args)
-    -- Use 'args.buf' to scope the buffer options correctly if needed,
-    -- but usually vim.bo refers to the current buffer when the autocmd runs.
-
-    -- Check if:
-    -- 1. The buffer has modifications ('modified' is true)
-    -- 2. The buffer is a normal, writable file type ('buftype' is empty string)
-    -- 3. The buffer is not set to 'readonly'
-    -- 4. The buffer has a file name/path assigned (vim.api.nvim_buf_get_name is the most reliable check)
-
-    if vim.bo.modified and vim.bo.buftype == "" and not vim.bo.readonly and vim.api.nvim_buf_get_name(args.buf) ~= "" then
-      -- Use 'update' which only writes the file if changes were made
-      vim.cmd('silent update')
+    local bo = vim.bo[args.buf]
+    -- Only real, writable files with a name and unsaved changes
+    if not (bo.modified and bo.buftype == "" and not bo.readonly and vim.api.nvim_buf_get_name(args.buf) ~= "") then
+      return
+    end
+    -- Mark as autosave so conform skips formatting (lua/plugins/conform.lua): switching
+    -- windows shouldn't wait on prettier/ansible-lint. Explicit :w still formats.
+    vim.b[args.buf].autosaving = true
+    local ok, err = pcall(vim.cmd.update, { mods = { silent = true } })
+    vim.b[args.buf].autosaving = nil
+    if not ok then
+      vim.notify("Autosave failed: " .. err, vim.log.levels.WARN)
     end
   end,
 })

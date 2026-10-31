@@ -69,5 +69,7 @@ opt.completeopt = "menu,menuone,noselect"
 -- Misc
 -----------------------------------------------------------
 
--- write the contents of the file when jumping between jumppoints
+-- Write modified buffers instead of refusing on :q, :e, :buffer, CTRL-^, CTRL-O to another file.
+-- Together with the autosave autocmd, edits are never kept only in memory.
+-- Note: :q on a modified buffer saves (and formats) without asking.
 opt.autowriteall = true

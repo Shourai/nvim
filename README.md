@@ -59,7 +59,7 @@ Install all servers, formatters and linters with `:MasonInstallAll`.
 | `<leader>g`                 | lazygit                                              |
 | `<leader>ms`                | markview split preview                               |
 | `<leader>pr`                | run the current Python file in a tmux pane (Python buffers only) |
-| `<leader>pp`                | run the current Python file and show the output (Python buffers only) |
+| `<leader>pp`                | run the current Python file and show the output when it exits (Python buffers only) |
 | `<leader>ts`                | choose the tmux pane for `<leader>pr` (Python buffers only) |
 | `<leader>rc`                | source the current Lua file (useful for `lua/config` files; warns on plugin specs, which need `:restart`) |
 | `Ctrl-h/j/k/l`              | move between splits and tmux panes (tmux.nvim)       |
@@ -81,7 +81,7 @@ LSP keys are Neovim's defaults (`:h lsp-defaults`), no `on_attach` needed:
 ## Behaviour worth knowing
 
 - Modified buffers are saved automatically when you leave the buffer or Neovim loses focus, and files are
-  formatted on save.
+  formatted on `:w` (autosaves skip formatting, so switching windows never waits on a formatter).
 - `autowriteall` is on: `:q`, `:e` and switching buffers write modified files without asking.
 - Completion (blink.cmp) uses the super-tab preset: `Tab` accepts.
 - Text objects: `am`/`im` function, `af`/`if` call, `ac`/`ic` class, `aa`/`ia` parameter, `ai`/`ii` conditional,

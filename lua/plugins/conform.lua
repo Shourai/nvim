@@ -17,8 +17,13 @@ return {
       typescript = { "prettier" },
       yaml = { "prettier" },
     },
-    format_on_save = {
-      lsp_format = "fallback",
-    }
+    -- Format on :w (and :q via autowriteall). Autosaves set b:autosaving and are skipped,
+    -- see lua/config/autocommands.lua.
+    format_on_save = function(bufnr)
+      if vim.b[bufnr].autosaving then
+        return nil
+      end
+      return { lsp_format = "fallback", timeout_ms = 1000 }
+    end,
   }
 }
