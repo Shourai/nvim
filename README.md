@@ -61,7 +61,7 @@ Install all servers, formatters and linters with `:MasonInstallAll`.
 | `<leader>pr`                | run the current Python file in a tmux pane (Python buffers only) |
 | `<leader>pp`                | run the current Python file and show the output (Python buffers only) |
 | `<leader>ts`                | choose the tmux pane for `<leader>pr` (Python buffers only) |
-| `<leader>rc`                | source the current Lua file (useful for `lua/config` files; plugin specs need a restart, `:restart` in 0.12) |
+| `<leader>rc`                | source the current Lua file (useful for `lua/config` files; warns on plugin specs, which need `:restart`) |
 | `Ctrl-h/j/k/l`              | move between splits and tmux panes (tmux.nvim)       |
 | `Alt-h/j/k/l`               | resize splits (tmux.nvim)                            |
 | `Ctrl-Alt-h/j/k/l`          | swap panes (tmux.nvim)                               |
@@ -87,4 +87,6 @@ LSP keys are Neovim's defaults (`:h lsp-defaults`), no `on_attach` needed:
 - Text objects: `am`/`im` function, `af`/`if` call, `ac`/`ic` class, `aa`/`ia` parameter, `ai`/`ii` conditional,
   `al`/`il` loop, `a=`/`i=` assignment; `ab`/`ib` and `` a` ``/`` i` `` code blocks in Markdown only.
 - nvim-surround: `ys` adds, `ds` deletes and `cs` changes surroundings.
-- `q` closes help, man and quickfix windows.
+- `q` closes help, man, quickfix and checkhealth windows.
+- Over SSH, yanks reach the local clipboard via OSC 52, but `p` pastes Neovim's own register;
+  paste text copied outside Neovim with the terminal's paste key.

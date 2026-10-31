@@ -63,7 +63,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("NoAutoComment", { clear = true }),
   callback = function(args)
-    if vim.tbl_contains({ "help" }, args.match) then
+    if args.match == "help" then
       return
     end
     -- Remove the 'c', 'r', and 'o' flags for this buffer only
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   desc = "Use q to close help-like buffers",
   group = vim.api.nvim_create_augroup("q-close", { clear = true }),
-  pattern = { "help", "man", "qf", "lspinfo", "fugitive" },
+  pattern = { "help", "man", "qf", "checkhealth" }, -- :LspInfo opens a checkhealth buffer in 0.12
   callback = function()
     vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true, silent = true })
     vim.bo.buflisted = false
