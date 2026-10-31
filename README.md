@@ -42,7 +42,7 @@ nvim               # first start bootstraps lazy.nvim, installs plugins and pars
 
 | What        | Where                       | Notes                                                   |
 |-------------|-----------------------------|---------------------------------------------------------|
-| LSP servers | `lua/config/lsp.lua`        | `lsp.lua` is the list of servers that start (Mason's automatic enable is off); configs come from nvim-lspconfig, `lsp/` overrides them |
+| LSP servers | `lua/config/lsp.lua`        | `lsp.lua` is the list of servers that start; configs come from nvim-lspconfig, `lsp/` overrides them |
 | Formatters  | `lua/plugins/conform.lua`   | format on save; Terraform via OpenTofu (`tofu fmt`); unlisted filetypes use the LSP |
 | Linters     | `lua/plugins/nvim-lint.lua` | run on read, save and leaving insert mode; Python and Terraform are linted by their LSPs |
 | Parsers     | `lua/plugins/treesitter.lua`| installed automatically; needs the `tree-sitter` CLI, a C compiler, `curl` and `tar` |

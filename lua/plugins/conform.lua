@@ -1,5 +1,7 @@
 return {
   "stevearc/conform.nvim",
+  event = "BufWritePre", -- formatting only happens on save
+  cmd = "ConformInfo",
   opts = {
     -- Filetypes not listed (Python, Lua) are formatted by their LSP
     formatters_by_ft = {

@@ -12,6 +12,7 @@ local g = vim.g     -- global variables
 -- General
 -----------------------------------------------------------
 g.mapleader = " "                     -- map leader to space
+g.maplocalleader = "\\"               -- set before lazy.setup() so plugin <localleader> maps use it
 opt.mouse = "a"                       -- allow the mouse to be used in neovim
 opt.clipboard = "unnamed,unnamedplus" -- allow neovim to access the system clipboard
 opt.swapfile = false                  -- creates a swapfile

@@ -1,6 +1,6 @@
--- Bootstrap lazy.nvim
+-- Bootstrap lazy.nvim: clone it on first start
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then -- config targets 0.12+, so vim.uv always exists
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
@@ -15,15 +15,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy.nvim
 require("lazy").setup({
-  spec = {
-    -- import your plugins
-    { import = "plugins" },
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = { enabled = true },
+  spec = { { import = "plugins" } }, -- one spec per file in lua/plugins/
+  install = { colorscheme = { "onedark", "habamax" } }, -- theme used during the first-run install
+  -- Check for updates in the background; the count shows in :Lazy. Apply with :Lazy sync.
+  checker = { enabled = true, notify = false },
 })

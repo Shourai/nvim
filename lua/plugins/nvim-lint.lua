@@ -1,11 +1,7 @@
 return {
   "mfussenegger/nvim-lint",
-  event = {
-    "BufReadPre",
-    "BufReadPost",
-    "BufNewFile",
-    "InsertLeave",
-  },
+  -- BufReadPre loads the plugin before the file's BufReadPost, so the autocmd below still fires
+  event = { "BufReadPre", "BufNewFile" },
   config = function()
     local lint = require("lint")
 
@@ -17,24 +13,21 @@ return {
       yaml = { "yamllint" },
     }
 
-    local markdownlint = require('lint').linters["markdownlint-cli2"]
-    markdownlint.args = {
+    -- Use this repo's linter configs (cfg_linters/) instead of per-project ones
+    lint.linters["markdownlint-cli2"].args = {
       "--config",
-      vim.fn.stdpath('config') .. '/cfg_linters/global.markdownlint.jsonc',
+      vim.fn.stdpath("config") .. "/cfg_linters/global.markdownlint.jsonc",
     }
-
-    local yamllint = require('lint').linters.yamllint
-    yamllint.args = {
+    lint.linters.yamllint.args = {
       "-c",
-      vim.fn.stdpath('config') .. '/cfg_linters/yamllint.yaml',
+      vim.fn.stdpath("config") .. "/cfg_linters/yamllint.yaml",
     }
 
     vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
       group = vim.api.nvim_create_augroup("NvimLint", { clear = true }),
       callback = function()
-        -- try_lint without arguments runs the linters defined in `linters_by_ft`
-        -- for the current filetype
-        require("lint").try_lint()
+        -- Runs the linters in linters_by_ft for the current filetype
+        lint.try_lint()
       end,
     })
   end,
