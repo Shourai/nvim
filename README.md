@@ -11,7 +11,8 @@ nvim               # first start installs lazy.nvim, the plugins and the parsers
 ```
 
 Needs: `tree-sitter` CLI, a C compiler, `curl`, `tar` (parsers); `npm`/`node`, `python3`, `unzip`
-(Mason); `fzf`, `ripgrep`, `fd` (fzf-lua); `lazygit` (`<leader>g`); `tofu` (Terraform formatting).
+(Mason); `fzf`, `ripgrep`, `fd` (fzf-lua); `lazygit` (`<leader>g`); `tofu` (Terraform formatting;
+only on the dev VM, other machines skip it).
 
 **Update**: `:Lazy sync`, `:MasonUpdate`, `:TSUpdate`, then `:checkhealth`. Plugin versions aren't
 pinned (`lazy-lock.json` is gitignored): `:Lazy restore` can only go back to what the local lock
